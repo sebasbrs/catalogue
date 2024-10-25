@@ -1,0 +1,15 @@
+{
+    "perPage": 100,
+    "pageSize": 8,
+    "tabs": {
+      "Modules": {
+        "topic": "azerothcore-module",
+        "path": "/azerothcore-module"
+      },
+      "Tools": {
+        "topic": "azerothcore-tools",
+        "path": "/azerothcore-tools"
+      }
+    }
+  }
+  
