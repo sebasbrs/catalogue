@@ -3,20 +3,22 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map, reduce, tap } from 'rxjs/operators';
-import { RepositoriesPage, Repository } from 'src/@types';
+import { RepositoriesPage, Repository } from '../../../@types';
 import { Config, Tab } from './catalogue.model';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class CatalogueService {
-  CONF: Config;
+  CONF: Config = { tabs: {}, perPage: 0, page: 1, pageSize: 10 };
   items$: Record<string, Observable<Repository[]>> = {};
 
-  private configURL = 'assets/topics.json';
+  private configURL = '../../../assets/topics.json';
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {
     this.http.get<Config>(this.configURL).subscribe((config: Config) => {
+      console.log('Config loaded:', config);
       this.CONF = config;
 
       for (const k of Object.keys(this.CONF.tabs)) {
@@ -38,7 +40,7 @@ export class CatalogueService {
     const orgFilter = org ? `org:${org}+` : '';
 
     const perPage = this.CONF.perPage;
-    let totalSize = null;
+    let totalSize: number | null = null;
 
     const getPage = (page: number) => {
       return this.http.get<RepositoriesPage>(
@@ -47,7 +49,7 @@ export class CatalogueService {
     };
 
     const pages$ = new Observable<Repository[]>((observer) => {
-      const fetchPage = (page) =>
+      const fetchPage = (page:number) =>
         getPage(page)
           .pipe(
             map((res) => {
@@ -59,7 +61,7 @@ export class CatalogueService {
           )
           .subscribe((items) => {
             observer.next(items);
-            const hasNextPage = perPage * page < totalSize;
+            const hasNextPage = perPage * page < (totalSize ?? 0);
             if (hasNextPage) {
               fetchPage(page + 1);
             } else {
@@ -68,7 +70,7 @@ export class CatalogueService {
           });
 
       fetchPage(1);
-    }).pipe(reduce((acc, val) => acc.concat(val), []));
+    }).pipe(reduce((acc: Repository[], val: Repository[]) => acc.concat(val), []));
 
     return this.cacheable(pages$, key);
   }
@@ -118,6 +120,7 @@ export class CatalogueService {
     }
 
     const tabName = this.route.snapshot.paramMap.get('tab');
+    console.log('Current tab name:', tabName);
     return tabName ? this.confTabPaths.indexOf(`/${tabName}`) : 0;
   }
 

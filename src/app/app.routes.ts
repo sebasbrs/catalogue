@@ -4,10 +4,10 @@ import { HomeComponent } from './home/home.component';
 import { HowtoComponent } from './howto/howto.component';
 import { RepoDetailsComponent } from './repo-details/repo-details.component';
 import { RepoDetailsResolverService } from './services/resolvers/repo-details-resolver.service';
-import { EmojiFixupPipe } from './pipes/emoji-fixup.pipe';
+import { MarkdownModule } from 'ngx-markdown';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent},
   { path: 'home', component: HomeComponent },
   { path: 'tab/:tab', component: HomeComponent },
   {
@@ -20,7 +20,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes),],
+  imports: [RouterModule.forChild(routes),MarkdownModule.forChild()],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

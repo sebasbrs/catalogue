@@ -19,7 +19,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RepoDetailsData } from '../services/resolvers/repo-details-resolver.service';
 import { MomentModule } from 'ngx-moment';
-import { MarkdownModule } from 'ngx-markdown'; // Importa el módulo aquí
+import { MarkdownModule } from 'ngx-markdown';
 
 
 @Component({
@@ -29,7 +29,7 @@ import { MarkdownModule } from 'ngx-markdown'; // Importa el módulo aquí
     CommonModule,
     MomentModule,
     FontAwesomeModule,
-    MarkdownModule,
+    MarkdownModule
   ],
   templateUrl: './repo-details.component.html',
   styleUrls: ['./repo-details.component.scss'],

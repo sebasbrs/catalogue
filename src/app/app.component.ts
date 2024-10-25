@@ -2,13 +2,14 @@ import { Component, Injector } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { CatalogueComponent } from './catalogue/catalogue.component';
 import { AppRoutingModule } from './app.routes'; 
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  templateUrl: './app.component.html',
+  template: '<router-outlet></router-outlet>',
   styleUrls: ['./app.component.scss'],
-  imports: [AppRoutingModule,CatalogueComponent],
+  imports: [AppRoutingModule,CatalogueComponent,RouterOutlet],
 })
 export class AppComponent {
   constructor(injector: Injector) {

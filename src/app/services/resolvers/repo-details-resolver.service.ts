@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { forkJoin, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { Repository } from 'src/@types';
+import { Repository } from '../../../@types';
 import { CatalogueService } from '../catalogue/catalogue.service';
 
 export type RepoDetailsData = {
@@ -21,7 +21,7 @@ export class RepoDetailsResolverService implements Resolve<RepoDetailsData> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): RepoDetailsData | Observable<RepoDetailsData>
     | Promise<RepoDetailsData> {
-    const id = route.params.id;
+    const id = route.params['id'];
 
     const repo$ = this.catalogueService.getLocalRepo(id);
 

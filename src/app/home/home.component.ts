@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { faSearch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CatalogueService } from '../services/catalogue/catalogue.service';
-import { Repository } from 'src/@types';
+import { Repository } from '../../@types';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -27,18 +27,25 @@ import { CommonModule } from '@angular/common';
   templateUrl: './home.component.html',
   providers: [CatalogueService],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
   constructor(
     public catalogueService: CatalogueService,
     public cdRef: ChangeDetectorRef,
-    private location: Location) {}
+    private location: Location) {console.log('HomeComponent initialized');}
 
+    ngOnInit(): void {
+      this.catalogueService.items$['tu-tab-key'].subscribe(data => {
+          console.log('Data received:', data);
+      });
+  }
+  
   page = 0;
   search: string = '';
   readonly faSearch: IconDefinition = faSearch;
-
+  
   refresh(): void {
     this.cdRef.detectChanges();
+  
   }
 
   onPageChange(page: PageEvent): void {
@@ -62,4 +69,5 @@ export class HomeComponent {
     }
     return filteredItems.slice(this.catalogueService.CONF.pageSize * this.page, this.catalogueService.CONF.pageSize * (this.page + 1));
   }
+  
 }

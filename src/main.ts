@@ -1,10 +1,12 @@
 import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { AppRoutingModule } from './app/app.routes';
 import { AppComponent } from './app/app.component';
+import { AppRoutingModule,routes } from './app/app.routes';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { environment } from './environments/environment';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideRouter } from '@angular/router';
+import { MarkdownModule } from 'ngx-markdown';
 
 if (environment.production) {
   enableProdMode();
@@ -12,7 +14,6 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideHttpClient(withFetch()), provideAnimationsAsync()
-    // Otros providers necesarios
+    provideHttpClient(withFetch()), provideAnimationsAsync(), provideRouter(routes),MarkdownModule
   ],
 }).catch(err => console.error(err));
