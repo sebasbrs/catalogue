@@ -20,8 +20,6 @@ import { map } from 'rxjs/operators';
 import { RepoDetailsData } from '../services/resolvers/repo-details-resolver.service';
 import { MomentModule } from 'ngx-moment';
 import { MarkdownModule } from 'ngx-markdown';
-
-
 @Component({
   selector: 'app-repo-details',
   standalone: true,
@@ -35,6 +33,7 @@ import { MarkdownModule } from 'ngx-markdown';
   styleUrls: ['./repo-details.component.scss'],
 })
 export class RepoDetailsComponent{
+ 
   constructor(private route: ActivatedRoute) {
     this.data$ = route.data.pipe(
       map(x => x?.["data"])

@@ -4,7 +4,6 @@ import { HomeComponent } from './home/home.component';
 import { HowtoComponent } from './howto/howto.component';
 import { RepoDetailsComponent } from './repo-details/repo-details.component';
 import { RepoDetailsResolverService } from './services/resolvers/repo-details-resolver.service';
-import { MarkdownModule } from 'ngx-markdown';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -20,7 +19,9 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes),MarkdownModule.forChild()],
+  imports: [
+    RouterModule.forChild(routes)
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
