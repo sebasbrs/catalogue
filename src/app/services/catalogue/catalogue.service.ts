@@ -14,7 +14,7 @@ export class CatalogueService {
   CONF: Config = { tabs: {}, perPage: 0, page: 1, pageSize: 10 };
   items$: Record<string, Observable<Repository[]>> = {};
 
-  private configURL = '../../../assets/topics.json';
+  private configURL = 'assets/topics.json';
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {
     this.http.get<Config>(this.configURL).subscribe((config: Config) => {
