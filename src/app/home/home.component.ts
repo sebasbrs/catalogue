@@ -27,17 +27,11 @@ import { CommonModule } from '@angular/common';
   templateUrl: './home.component.html',
   providers: [CatalogueService],
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent{
   constructor(
     public catalogueService: CatalogueService,
     public cdRef: ChangeDetectorRef,
     private location: Location) {console.log('HomeComponent initialized');}
-
-    ngOnInit(): void {
-      this.catalogueService.items$['tu-tab-key'].subscribe(data => {
-          console.log('Data received:', data);
-      });
-  }
   
   page = 0;
   search: string = '';

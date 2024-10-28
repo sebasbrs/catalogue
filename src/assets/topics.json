@@ -9,6 +9,10 @@
       "Tools": {
         "topic": "azerothcore-tools",
         "path": "/azerothcore-tools"
+      },
+      "SQL": {
+        "topic": "azerothcore-sql",
+        "path": "/azerothcore-sql"
       }
     }
   }
